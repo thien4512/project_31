@@ -53,7 +53,7 @@ import java.util.Map;
 public class MyService extends Service {
     private static final String TAG = "BOOMBOOMTESTGPS";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 2000;
+    private static final int LOCATION_INTERVAL = 1000;
     private static final float LOCATION_DISTANCE = 0;
     String[] local,temp1;
     String lat="";
@@ -81,7 +81,8 @@ public class MyService extends Service {
             temp1=local[1].split(",");
             lat=temp1[0]+"."+temp1[1];
             lng=temp1[2]+"."+temp1[3];
-            Toast.makeText(getApplicationContext(),"lat:"+lat+" lng:"+lng+" id:"+name_MyService,Toast.LENGTH_SHORT).show();
+           //Toast.makeText(getApplicationContext(),"lat:"+lat+" lng:"+lng+" id:"+name_MyService,Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(),"lat:"+lat+" lng:"+lng+" id:"+name_MyService,800).show();
             request_post_for_insert();
         }
 

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +63,10 @@ public class MyService extends Service {
     String name_MyService;
     String url = "http://starglobal.xyz/demo/iot/rest/application.php/post_insert";
 
+    private ArrayList<Toast> msjsToast = new ArrayList<Toast>();
+
+    private  Toast t;
+
     private class LocationListener implements android.location.LocationListener
     {
         Location mLastLocation;
@@ -83,6 +88,10 @@ public class MyService extends Service {
             lng=temp1[2]+"."+temp1[3];
            //Toast.makeText(getApplicationContext(),"lat:"+lat+" lng:"+lng+" id:"+name_MyService,Toast.LENGTH_SHORT).show();
             // Toast.makeText(getApplicationContext(),"lat:"+lat+" lng:"+lng+" id:"+name_MyService,800).show();
+            //t.cancel();
+            t = Toast.makeText(getApplicationContext(),"GPS is running",Toast.LENGTH_SHORT);
+                t.show();
+                msjsToast.add(t);
             request_post_for_insert();
         }
 
@@ -125,10 +134,12 @@ public class MyService extends Service {
         return START_STICKY;
     }
 
+
     @Override
     public void onCreate()
     {
-        //Toast.makeText(getApplicationContext(),"this is service",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Getting location...",Toast.LENGTH_SHORT).show();
+
         Log.e(TAG, "onCreate");
         requestQueue = Volley.newRequestQueue(this);
         initializeLocationManager();
@@ -154,7 +165,7 @@ public class MyService extends Service {
 
     @Override
     public void onDestroy()
-    {
+    {   killAllToast();
         Log.e(TAG, "onDestroy");
         super.onDestroy();
         if (mLocationManager != null) {
@@ -166,6 +177,7 @@ public class MyService extends Service {
                 }
             }
         }
+
     }
 
     private void initializeLocationManager() {
@@ -205,5 +217,14 @@ public class MyService extends Service {
             }
         };
         requestQueue.add(arrReq);
+    }
+
+    private void killAllToast(){
+        for(Toast t:msjsToast){
+            if(t!=null) {
+                t.cancel();
+            }
+        }
+        msjsToast.clear();
     }
 }

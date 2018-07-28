@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button button_1, button_2;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 toggleButtons_3();
                 stopService(new Intent(MainActivity.this,MyService.class));
+
             }
         });
     }
